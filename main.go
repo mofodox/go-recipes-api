@@ -2,9 +2,9 @@ package main
 
 import (
 	"encoding/json"
-	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -24,7 +24,8 @@ var recipes []Recipe
 
 func init() {
 	recipes = make([]Recipe, 0)
-	file, err := ioutil.ReadFile("./internal/recipes.json")
+
+	file, err := os.ReadFile("./internal/recipes.json")
 	if err != nil {
 		log.Println(err)
 	}
