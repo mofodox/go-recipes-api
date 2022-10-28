@@ -1,0 +1,127 @@
+basePath: /api/v1
+definitions:
+  main.Recipe:
+    properties:
+      id:
+        type: string
+      ingredients:
+        items:
+          type: string
+        type: array
+      instructions:
+        items:
+          type: string
+        type: array
+      name:
+        type: string
+      publishedAt:
+        type: string
+      tags:
+        items:
+          type: string
+        type: array
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: kai@mofodox.com
+    name: Khairul Akmal
+    url: https://mofodox.com
+  description: This is a project on building applications using Gin
+  title: Recipes API
+  version: 0.0.1
+paths:
+  /recipes:
+    get:
+      description: Returns a list of recipes
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            items:
+              $ref: '#/definitions/main.Recipe'
+            type: array
+      summary: Returns a list of recipes
+    post:
+      description: Creates a new recipe
+      parameters:
+      - description: recipe data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/main.Recipe'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/main.Recipe'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      summary: To create a new recipe
+  /recipes/:id:
+    delete:
+      description: Deletes an existing recipe
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      summary: Deletes an existing recipe
+    put:
+      description: Updates an existing recipe
+      parameters:
+      - description: recipe data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/main.Recipe'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.Recipe'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      summary: Updates an existing recipe
+  /recipes/search:
+    get:
+      description: Searches for recipes by tags
+      parameters:
+      - description: recipe search by tags
+        format: tag
+        in: query
+        name: tag
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      summary: Searches for recipes by tags
+schemes:
+- http
+swagger: "2.0"
